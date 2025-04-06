@@ -140,6 +140,41 @@ const AiToolsPage = () => {
         );
       }
       
+      // Apply sorting
+      if (filters.sort) {
+        switch (filters.sort) {
+          case 'newest':
+            filtered.sort((a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime());
+            break;
+          case 'popular':
+            filtered.sort((a, b) => {
+              const aPopularity = a.stars || a.downloads || a.citations || 0;
+              const bPopularity = b.stars || b.downloads || b.citations || 0;
+              return bPopularity - aPopularity;
+            });
+            break;
+          case 'mostPopular':
+            // Trending items - for demo purposes, we'll combine recency and popularity
+            filtered.sort((a, b) => {
+              // Calculate a trending score based on popularity and recency
+              const aDate = new Date(a.dateAdded).getTime();
+              const bDate = new Date(b.dateAdded).getTime();
+              const aPopularity = a.stars || a.downloads || a.citations || 0;
+              const bPopularity = b.stars || b.downloads || b.citations || 0;
+              
+              // Trending score formula: popularity * recency factor
+              const aScore = aPopularity * (aDate / (Date.now() - 30 * 24 * 60 * 60 * 1000));
+              const bScore = bPopularity * (bDate / (Date.now() - 30 * 24 * 60 * 60 * 1000));
+              
+              return bScore - aScore;
+            });
+            break;
+          case 'alphabetical':
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        }
+      }
+      
       setFilteredTools(filtered);
       setIsLoading(false);
     }, 500);

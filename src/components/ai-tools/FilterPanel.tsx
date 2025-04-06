@@ -18,7 +18,8 @@ import {
   RefreshCw, 
   SortAsc, 
   SortDesc, 
-  TrendingUp 
+  TrendingUp, 
+  Flame
 } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -51,6 +52,7 @@ export function FilterPanel({ onApplyFilters, onReset }: FilterPanelProps) {
   const sortOptions = [
     { id: "newest", label: "Newest First", icon: Clock },
     { id: "popular", label: "Most Popular", icon: TrendingUp },
+    { id: "mostPopular", label: "Trending Now", icon: Flame },
     { id: "alphabetical", label: "A-Z", icon: SortAsc }
   ];
   
