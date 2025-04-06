@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
   SidebarTrigger
 } from "@/components/ui/sidebar";
-import { BarChart3, Database, Home, LayoutDashboard, ListFilter, MailPlus, Settings, Sparkles } from "lucide-react";
+import { BarChart3, Database, Home, LayoutDashboard, MailPlus, Settings, Sparkles } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 export function AppSidebar() {
@@ -64,7 +64,7 @@ export function AppSidebar() {
       <SidebarHeader className="flex h-14 items-center px-4">
         <div className="flex items-center gap-2 text-xl font-bold text-primary">
           <Sparkles className="h-6 w-6" />
-          <span>FetchAI Radar</span>
+          <span>FetchAI</span>
         </div>
         <SidebarTrigger className="ml-auto lg:hidden" />
       </SidebarHeader>
@@ -75,7 +75,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild active={location.pathname === "/"}>
+                <SidebarMenuButton asChild isActive={location.pathname === "/"}>
                   <Link to="/">
                     <Home className="h-5 w-5" />
                     <span>Home</span>
@@ -85,7 +85,7 @@ export function AppSidebar() {
               
               {mainMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild active={location.pathname === item.url}>
+                  <SidebarMenuButton asChild isActive={location.pathname === item.url}>
                     <Link to={item.url}>
                       <item.icon className="h-5 w-5" />
                       <span>{item.title}</span>
@@ -103,7 +103,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {sourcesMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild active={location.pathname + location.search === item.url}>
+                  <SidebarMenuButton asChild isActive={location.pathname + location.search === item.url}>
                     <Link to={item.url}>
                       <item.icon className="h-5 w-5" />
                       <span>{item.title}</span>

@@ -2,16 +2,46 @@
 import { Button } from "@/components/ui/button";
 import { Brain, ChevronRight, Database, Gauge, Sparkles, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [showGetStarted, setShowGetStarted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const { toast } = useToast();
+
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, we would connect to a backend for authentication
+    toast({
+      title: "Signed in successfully",
+      description: `Welcome back!`,
+    });
+    setShowSignIn(false);
+  };
+
+  const handleGetStarted = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, we would connect to a backend for registration
+    toast({
+      title: "Account created successfully",
+      description: `Welcome to FetchAI, ${name}!`,
+    });
+    setShowGetStarted(false);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* Header */}
       <header className="border-b border-border/40 bg-background">
         <div className="container flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2 text-xl font-bold text-primary">
             <Sparkles className="h-6 w-6" />
-            <span>FetchAI Radar</span>
+            <span>FetchAI</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <Link to="/dashboard" className="text-sm font-medium hover:text-primary">Dashboard</Link>
@@ -20,11 +50,125 @@ const Index = () => {
             <Link to="/subscribe" className="text-sm font-medium hover:text-primary">Subscribe</Link>
           </nav>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">Sign In</Button>
-            <Button size="sm">Get Started</Button>
+            <Button variant="outline" size="sm" onClick={() => setShowSignIn(true)}>Sign In</Button>
+            <Button size="sm" onClick={() => setShowGetStarted(true)}>Get Started</Button>
           </div>
         </div>
       </header>
+      
+      {/* Sign In Modal */}
+      {showSignIn && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-card p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-2xl font-bold mb-4">Sign In</h2>
+            <form onSubmit={handleSignIn}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <Input 
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="youremail@example.com" 
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Password</label>
+                  <Input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="••••••••" 
+                    required
+                  />
+                </div>
+                <div className="flex justify-between items-center pt-2">
+                  <Button type="button" variant="outline" onClick={() => setShowSignIn(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit">Sign In</Button>
+                </div>
+                <div className="text-center text-sm mt-4">
+                  <span className="text-muted-foreground">Don't have an account? </span>
+                  <button 
+                    type="button" 
+                    className="text-primary hover:underline" 
+                    onClick={() => {
+                      setShowSignIn(false);
+                      setShowGetStarted(true);
+                    }}
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+      {/* Get Started Modal */}
+      {showGetStarted && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-card p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-2xl font-bold mb-4">Get Started</h2>
+            <form onSubmit={handleGetStarted}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Name</label>
+                  <Input 
+                    type="text" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    placeholder="Your Name" 
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <Input 
+                    type="email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    placeholder="youremail@example.com" 
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Password</label>
+                  <Input 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    placeholder="••••••••" 
+                    required
+                  />
+                </div>
+                <div className="flex justify-between items-center pt-2">
+                  <Button type="button" variant="outline" onClick={() => setShowGetStarted(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit">Create Account</Button>
+                </div>
+                <div className="text-center text-sm mt-4">
+                  <span className="text-muted-foreground">Already have an account? </span>
+                  <button 
+                    type="button" 
+                    className="text-primary hover:underline" 
+                    onClick={() => {
+                      setShowGetStarted(false);
+                      setShowSignIn(true);
+                    }}
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
       
       {/* Hero Section */}
       <section className="flex-1 grid place-items-center px-4 py-16 md:py-24">
@@ -100,7 +244,7 @@ const Index = () => {
             <div className="relative z-10">
               <h2 className="text-2xl md:text-3xl font-bold mb-3">Ready to Discover the Future of AI?</h2>
               <p className="text-muted-foreground mb-6 max-w-2xl">
-                Join the community of AI enthusiasts and professionals who use FetchAI Radar to stay ahead of the curve.
+                Join the community of AI enthusiasts and professionals who use FetchAI to stay ahead of the curve.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg">
@@ -129,10 +273,10 @@ const Index = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-xl font-bold text-primary">
               <Sparkles className="h-5 w-5" />
-              <span>FetchAI Radar</span>
+              <span>FetchAI</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              © 2025 FetchAI Radar. All rights reserved.
+              © 2025 FetchAI. All rights reserved.
             </div>
           </div>
         </div>

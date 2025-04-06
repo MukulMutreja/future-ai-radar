@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import AiToolsPage from "./pages/AiToolsPage";
 import TrendsPage from "./pages/TrendsPage";
 import SubscriptionsPage from "./pages/SubscriptionsPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/tools" element={<AiToolsPage />} />
           <Route path="/trends" element={<TrendsPage />} />
           <Route path="/subscribe" element={<SubscriptionsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
