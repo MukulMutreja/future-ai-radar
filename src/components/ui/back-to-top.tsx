@@ -15,7 +15,7 @@ export function BackToTop() {
     }
   };
 
-  // Set the top cordinate to 0
+  // Set the top coordinate to 0
   // Make scrolling smooth
   const scrollToTop = () => {
     window.scrollTo({
