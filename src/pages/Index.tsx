@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { GoogleSignInButton } from "@/components/auth/google-sign-in";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 const Index = () => {
   const [showSignIn, setShowSignIn] = useState(false);
@@ -50,6 +52,7 @@ const Index = () => {
             <Link to="/subscribe" className="text-sm font-medium hover:text-primary">Subscribe</Link>
           </nav>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="outline" size="sm" onClick={() => setShowSignIn(true)}>Sign In</Button>
             <Button size="sm" onClick={() => setShowGetStarted(true)}>Get Started</Button>
           </div>
@@ -89,6 +92,15 @@ const Index = () => {
                   </Button>
                   <Button type="submit">Sign In</Button>
                 </div>
+                
+                <div className="relative flex items-center py-2">
+                  <div className="flex-grow border-t border-border"></div>
+                  <span className="flex-shrink mx-4 text-muted-foreground text-sm">or</span>
+                  <div className="flex-grow border-t border-border"></div>
+                </div>
+                
+                <GoogleSignInButton mode="signin" />
+                
                 <div className="text-center text-sm mt-4">
                   <span className="text-muted-foreground">Don't have an account? </span>
                   <button 
@@ -151,6 +163,15 @@ const Index = () => {
                   </Button>
                   <Button type="submit">Create Account</Button>
                 </div>
+                
+                <div className="relative flex items-center py-2">
+                  <div className="flex-grow border-t border-border"></div>
+                  <span className="flex-shrink mx-4 text-muted-foreground text-sm">or</span>
+                  <div className="flex-grow border-t border-border"></div>
+                </div>
+                
+                <GoogleSignInButton mode="signup" />
+                
                 <div className="text-center text-sm mt-4">
                   <span className="text-muted-foreground">Already have an account? </span>
                   <button 

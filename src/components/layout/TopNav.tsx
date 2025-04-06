@@ -1,57 +1,40 @@
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
-  DropdownMenu,
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { Bell, Filter, Search, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Bell, Menu, Search } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 export function TopNav() {
   return (
-    <div className="border-b border-border bg-card/50 backdrop-blur-sm">
-      <div className="flex h-14 items-center gap-4 px-4">
-        <SidebarTrigger className="lg:hidden" />
-        
-        <div className="relative flex-1 max-w-md">
+    <div className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6">
+      <SidebarTrigger className="lg:hidden">
+        <Menu className="h-6 w-6" />
+        <span className="sr-only">Toggle Menu</span>
+      </SidebarTrigger>
+      
+      <div className="w-full flex-1">
+        <form className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search AI tools, models, papers..."
-            className="w-full bg-background pl-8 rounded-lg"
+            placeholder="Search AI tools..."
+            className="w-full rounded-lg bg-background pl-8 md:w-2/3 lg:w-1/3"
           />
-        </div>
-        
-        <Button variant="outline" size="icon" className="rounded-lg">
-          <Filter className="h-4 w-4" />
+        </form>
+      </div>
+      
+      <div className="flex items-center gap-2">
+        <ThemeToggle />
+        <Button variant="ghost" size="icon">
+          <Bell className="h-5 w-5" />
+          <span className="sr-only">Notifications</span>
         </Button>
-        
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-lg">
-              <Bell className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>No new notifications</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-lg">
-              <User className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Sign in</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Avatar>
+          <AvatarImage src="" alt="Avatar" />
+          <AvatarFallback>AI</AvatarFallback>
+        </Avatar>
       </div>
     </div>
   );
